@@ -21,7 +21,6 @@ public interface UserDao {
     void delete(Long id);
     void delete(User user);
 
-    // Проверка существования
     boolean existsById(Long id);
     boolean existsByEmail(String email);
 }

@@ -15,36 +15,31 @@ public class HibernateUtil {
 
     static {
         try {
-            System.out.println("🔄 Пытаюсь подключиться к базе данных...");
+            System.out.println("Пытаюсь подключиться к базе данных...");
 
-            // Создаем ServiceRegistry с конфигурацией
             StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
                     .configure("hibernate.cfg.xml")
                     .build();
 
             try {
-                // Создаем MetadataSources и ЯВНО добавляем сущность
                 MetadataSources metadataSources = new MetadataSources(standardRegistry);
-                metadataSources.addAnnotatedClass(User.class); // ЯВНО регистрируем сущность
-
-                // Создаем Metadata
+                metadataSources.addAnnotatedClass(User.class); 
                 Metadata metadata = metadataSources.getMetadataBuilder().build();
 
-                // Создаем SessionFactory
                 sessionFactory = metadata.getSessionFactoryBuilder().build();
 
-                System.out.println("✅ Подключение к базе данных успешно!");
-                System.out.println("✅ Сущность User зарегистрирована в Hibernate!");
+                System.out.println("Подключение к базе данных успешно!");
+                System.out.println("Сущность User зарегистрирована в Hibernate!");
 
             } catch (Exception e) {
-                System.err.println("❌ Ошибка при создании SessionFactory: " + e.getMessage());
+                System.err.println("Ошибка при создании SessionFactory: " + e.getMessage());
                 e.printStackTrace();
                 StandardServiceRegistryBuilder.destroy(standardRegistry);
                 throw e;
             }
 
         } catch (Exception e) {
-            System.err.println("❌ ОШИБКА подключения к базе данных!");
+            System.err.println("ОШИБКА подключения к базе данных!");
             System.err.println("Сообщение: " + e.getMessage());
             e.printStackTrace();
             throw new ExceptionInInitializerError(e);

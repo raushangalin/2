@@ -22,7 +22,6 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("=== ЗАПУСК USER SERVICE ===");
 
-        // Проверка подключения к базе данных
         try {
             SessionFactory factory = HibernateUtil.getSessionFactory();
             if (factory == null) {
@@ -31,7 +30,6 @@ public class Main {
                 return;
             }
 
-            // Простая проверка что можем открыть сессию
             try (Session session = factory.openSession()) {
                 System.out.println(" Подключение к базе данных успешно!");
             }

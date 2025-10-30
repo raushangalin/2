@@ -23,60 +23,15 @@ public class UserDaoImpl implements UserDao {
             session.persist(user);
             transaction.commit();
             logger.info("User saved successfully: {}", user.getEmail());
+
             return user;
+
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             logger.error("Error saving user: {}", e.getMessage(), e);
             throw new RuntimeException("Failed to save user", e);
-        }
-    }
-
-    @Override
-    public Optional<User> findById(Long id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            User user = session.get(User.class, id);
-            if (user != null) {
-                logger.debug("User found by id {}: {}", id, user.getEmail());
-            } else {
-                logger.debug("User not found by id: {}", id);
-            }
-            return Optional.ofNullable(user);
-        } catch (Exception e) {
-            logger.error("Error finding user by id {}: {}", id, e.getMessage(), e);
-            throw new RuntimeException("Failed to find user by id", e);
-        }
-    }
-
-    @Override
-    public List<User> findAll() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<User> query = session.createQuery("FROM com.example.entity.User", User.class);
-            List<User> users = query.getResultList();
-            logger.debug("Found {} users", users.size());
-            return users;
-        } catch (Exception e) {
-            logger.error("Error finding all users: {}", e.getMessage(), e);
-            throw new RuntimeException("Failed to find all users", e);
-        }
-    }
-
-    @Override
-    public Optional<User> findByEmail(String email) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<User> query = session.createQuery("FROM com.example.entity.User WHERE email = :email", User.class);
-            query.setParameter("email", email);
-            User user = query.uniqueResult();
-            if (user != null) {
-                logger.debug("User found by email: {}", email);
-            } else {
-                logger.debug("User not found by email: {}", email);
-            }
-            return Optional.ofNullable(user);
-        } catch (Exception e) {
-            logger.error("Error finding user by email {}: {}", email, e.getMessage(), e);
-            throw new RuntimeException("Failed to find user by email", e);
         }
     }
 
@@ -88,7 +43,9 @@ public class UserDaoImpl implements UserDao {
             User updatedUser = session.merge(user);
             transaction.commit();
             logger.info("User updated successfully: {}", user.getEmail());
+
             return updatedUser;
+
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -96,6 +53,11 @@ public class UserDaoImpl implements UserDao {
             logger.error("Error updating user: {}", e.getMessage(), e);
             throw new RuntimeException("Failed to update user", e);
         }
+    }
+
+    @Override
+    public void delete(User user) {
+        delete(user.getId());
     }
 
     @Override
@@ -121,33 +83,72 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void delete(User user) {
-        delete(user.getId());
-    }
-
-    @Override
-    public boolean existsById(Long id) {
+    public List<User> findAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Long> query = session.createQuery("SELECT COUNT(id) FROM com.example.entity.User WHERE id = :id", Long.class);
-            query.setParameter("id", id);
-            Long count = query.uniqueResult();
-            return count != null && count > 0;
+            Query<User> query = session.createQuery("FROM com.example.entity.User", User.class);
+            List<User> users = query.getResultList();
+            logger.debug("Found {} users", users.size());
+
+            return users;
+
         } catch (Exception e) {
-            logger.error("Error checking user existence by id {}: {}", id, e.getMessage(), e);
-            throw new RuntimeException("Failed to check user existence", e);
+            logger.error("Error finding all users: {}", e.getMessage(), e);
+            throw new RuntimeException("Failed to find all users", e);
         }
     }
 
     @Override
-    public boolean existsByEmail(String email) {
+    public Optional<User> findById(Long id) {
+        return findByField("id", id);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return findByField("email", email);
+    }
+
+    private Optional<User> findByField(String fieldName, Object fieldValue) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Long> query = session.createQuery("SELECT COUNT(id) FROM com.example.entity.User WHERE email = :email", Long.class);
-            query.setParameter("email", email);
+            String hql = "FROM com.example.entity.User WHERE " + fieldName + " = :fieldValue";
+            Query<User> query = session.createQuery(hql, User.class);
+            query.setParameter("fieldValue", fieldValue);
+
+            User user = query.uniqueResult();
+
+            if (user != null) {
+                logger.debug("User found by {}: {}", fieldName, fieldValue);
+            } else {
+                logger.debug("User not found by {}: {}", fieldName, fieldValue);
+            }
+
+            return Optional.ofNullable(user);
+
+        } catch (Exception e) {
+            logger.error("Error finding user by {} {}: {}", fieldName, fieldValue, e.getMessage(), e);
+            throw new RuntimeException("Failed to find user by " + fieldName, e);
+        }
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return existsByCondition("id = :id", "id", id);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return existsByCondition("email = :email", "email", email);
+    }
+
+    private boolean existsByCondition(String condition, String parameterName, Object parameterValue) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "SELECT COUNT(id) FROM User WHERE " + condition;
+            Query<Long> query = session.createQuery(hql, Long.class);
+            query.setParameter(parameterName, parameterValue);
             Long count = query.uniqueResult();
             return count != null && count > 0;
         } catch (Exception e) {
-            logger.error("Error checking user existence by email {}: {}", email, e.getMessage(), e);
-            throw new RuntimeException("Failed to check user existence by email", e);
+            logger.error("Error checking existence by {}: {}", parameterName, e.getMessage(), e);
+            throw new RuntimeException("Failed to check existence", e);
         }
     }
 }

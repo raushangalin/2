@@ -6,12 +6,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
 import java.time.LocalDateTime;
+import java.util.Objects;
 
+/**
+ * UserEntity - основная сущность для работы с пользователями
+ * Полностью соответствует требованиям CRUD операций
+ */
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,15 +34,20 @@ public class User {
     private LocalDateTime createdAt;
 
     // Конструкторы
-    public User() {
+    public UserEntity() {
         this.createdAt = LocalDateTime.now();
     }
 
-    public User(String name, String email, Integer age) {
+    public UserEntity(String name, String email, Integer age) {
         this();
         this.name = name;
         this.email = email;
         this.age = age;
+    }
+
+    public UserEntity(Long id, String name, String email, Integer age) {
+        this(name, email, age);
+        this.id = id;
     }
 
     // Геттеры и сеттеры
@@ -84,7 +93,24 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("User{id=%d, name='%s', email='%s', age=%d, createdAt=%s}",
+        return String.format("UserEntity{id=%d, name='%s', email='%s', age=%d, createdAt=%s}",
                 id, name, email, age, createdAt);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserEntity that = (UserEntity) o;
+
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(age, that.age);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email, age);
     }
 }

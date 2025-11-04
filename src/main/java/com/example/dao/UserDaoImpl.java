@@ -1,24 +1,44 @@
 package com.example.dao;
 
-import com.example.entity.User;
-import com.example.util.HibernateUtil;
+import com.example.entity.UserEntity;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Реализация UserDao с поддержкой SessionFactory
+ * Может работать как с обычной SessionFactory, так и с тестовой
+ */
 public class UserDaoImpl implements UserDao {
 
     private static final Logger logger = LogManager.getLogger(UserDaoImpl.class);
+    private final SessionFactory sessionFactory;
+
+    /**
+     * Конструктор с явной передачей SessionFactory
+     * Используется в тестах и явном использовании
+     */
+    public UserDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    /**
+     * Конструктор без параметров для совместимости с существующим кодом
+     * Использует HibernateUtil.getSessionFactory()
+     */
+    public UserDaoImpl() {
+        this(com.example.util.HibernateUtil.getSessionFactory());
+    }
 
     @Override
-    public User save(User user) {
+    public UserEntity save(UserEntity user) {
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.persist(user);
             transaction.commit();
@@ -36,11 +56,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User update(User user) {
+    public UserEntity update(UserEntity user) {
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            User updatedUser = session.merge(user);
+            UserEntity updatedUser = session.merge(user);
             transaction.commit();
             logger.info("User updated successfully: {}", user.getEmail());
 
@@ -56,16 +76,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void delete(User user) {
+    public void delete(UserEntity user) {
         delete(user.getId());
     }
 
     @Override
     public void delete(Long id) {
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            User user = session.get(User.class, id);
+            UserEntity user = session.get(UserEntity.class, id);
             if (user != null) {
                 session.remove(user);
                 logger.info("User deleted successfully, id: {}", id);
@@ -83,10 +103,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findAll() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<User> query = session.createQuery("FROM com.example.entity.User", User.class);
-            List<User> users = query.getResultList();
+    public List<UserEntity> findAll() {
+        try (Session session = sessionFactory.openSession()) {
+            Query<UserEntity> query = session.createQuery("FROM com.example.entity.UserEntity", UserEntity.class);
+            List<UserEntity> users = query.getResultList();
             logger.debug("Found {} users", users.size());
 
             return users;
@@ -98,23 +118,21 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<UserEntity> findById(Long id) {
         return findByField("id", id);
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
+    public Optional<UserEntity> findByEmail(String email) {
         return findByField("email", email);
     }
 
-    private Optional<User> findByField(String fieldName, Object fieldValue) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "FROM com.example.entity.User WHERE " + fieldName + " = :fieldValue";
-            Query<User> query = session.createQuery(hql, User.class);
+    private Optional<UserEntity> findByField(String fieldName, Object fieldValue) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "FROM com.example.entity.UserEntity WHERE " + fieldName + " = :fieldValue";
+            Query<UserEntity> query = session.createQuery(hql, UserEntity.class);
             query.setParameter("fieldValue", fieldValue);
-
-            User user = query.uniqueResult();
-
+            UserEntity user = query.uniqueResult();
             if (user != null) {
                 logger.debug("User found by {}: {}", fieldName, fieldValue);
             } else {
@@ -140,12 +158,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     private boolean existsByCondition(String condition, String parameterName, Object parameterValue) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "SELECT COUNT(id) FROM User WHERE " + condition;
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT COUNT(id) FROM UserEntity WHERE " + condition;
             Query<Long> query = session.createQuery(hql, Long.class);
             query.setParameter(parameterName, parameterValue);
             Long count = query.uniqueResult();
+
             return count != null && count > 0;
+
         } catch (Exception e) {
             logger.error("Error checking existence by {}: {}", parameterName, e.getMessage(), e);
             throw new RuntimeException("Failed to check existence", e);

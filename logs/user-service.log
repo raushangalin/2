@@ -719,8 +719,8 @@ Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve roo
 2025-10-27 19:51:12.063 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
 2025-10-27 19:51:12.604 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
 2025-10-27 19:51:12.654 [main] INFO  com.example.Main - Starting User Service application
-2025-10-27 19:51:38.369 [main] ERROR com.example.dao.UserDaoImpl - Error checking user existence by email boba@mail.com: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.User'
-java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.User'
+2025-10-27 19:51:38.369 [main] ERROR com.example.dao.UserDaoImpl - Error checking user existence by email boba@mail.com: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.UserEntity'
+java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.UserEntity'
 	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:143) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:167) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:173) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
@@ -730,14 +730,14 @@ java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityExcepti
 	at com.example.Main.createUser(Main.java:124) [classes/:?]
 	at com.example.Main.showMenu(Main.java:80) [classes/:?]
 	at com.example.Main.main(Main.java:52) [classes/:?]
-Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.User'
+Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.UserEntity'
 	at org.hibernate.query.hql.internal.StandardHqlTranslator.translate(StandardHqlTranslator.java:90) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.createHqlInterpretation(QueryInterpretationCacheStandardImpl.java:165) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.resolveHqlInterpretation(QueryInterpretationCacheStandardImpl.java:147) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.internal.AbstractSharedSessionContract.interpretHql(AbstractSharedSessionContract.java:744) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:794) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	... 5 more
-Caused by: org.hibernate.query.sqm.EntityTypeException: Could not resolve entity class 'com.example.entity.User'
+Caused by: org.hibernate.query.sqm.EntityTypeException: Could not resolve entity class 'com.example.entity.UserEntity'
 	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.resolveEntityReference(JpaMetamodelImpl.java:490) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.getHqlEntityReference(JpaMetamodelImpl.java:158) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitRootEntity(SemanticQueryBuilder.java:1936) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
@@ -767,7 +767,7 @@ java.lang.RuntimeException: Failed to check user existence by email
 	at com.example.Main.createUser(Main.java:124) ~[classes/:?]
 	at com.example.Main.showMenu(Main.java:80) [classes/:?]
 	at com.example.Main.main(Main.java:52) [classes/:?]
-Caused by: java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.User'
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.UserEntity'
 	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:143) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:167) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:173) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
@@ -775,7 +775,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEn
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:132) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at com.example.dao.UserDaoImpl.existsByEmail(UserDaoImpl.java:148) ~[classes/:?]
 	... 3 more
-Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.User'
+Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.UserEntity'
 	at org.hibernate.query.hql.internal.StandardHqlTranslator.translate(StandardHqlTranslator.java:90) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.createHqlInterpretation(QueryInterpretationCacheStandardImpl.java:165) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.resolveHqlInterpretation(QueryInterpretationCacheStandardImpl.java:147) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
@@ -784,7 +784,7 @@ Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve ent
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:132) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at com.example.dao.UserDaoImpl.existsByEmail(UserDaoImpl.java:148) ~[classes/:?]
 	... 3 more
-Caused by: org.hibernate.query.sqm.EntityTypeException: Could not resolve entity class 'com.example.entity.User'
+Caused by: org.hibernate.query.sqm.EntityTypeException: Could not resolve entity class 'com.example.entity.UserEntity'
 	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.resolveEntityReference(JpaMetamodelImpl.java:490) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.getHqlEntityReference(JpaMetamodelImpl.java:158) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitRootEntity(SemanticQueryBuilder.java:1936) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
@@ -810,8 +810,8 @@ Caused by: org.hibernate.query.sqm.EntityTypeException: Could not resolve entity
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:132) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at com.example.dao.UserDaoImpl.existsByEmail(UserDaoImpl.java:148) ~[classes/:?]
 	... 3 more
-2025-10-27 19:51:43.199 [main] ERROR com.example.dao.UserDaoImpl - Error finding all users: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.User'
-java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.User'
+2025-10-27 19:51:43.199 [main] ERROR com.example.dao.UserDaoImpl - Error finding all users: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.UserEntity'
+java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.UserEntity'
 	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:143) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:167) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:173) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
@@ -821,14 +821,14 @@ java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityExcepti
 	at com.example.Main.findAllUsers(Main.java:152) [classes/:?]
 	at com.example.Main.showMenu(Main.java:86) [classes/:?]
 	at com.example.Main.main(Main.java:52) [classes/:?]
-Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.User'
+Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.UserEntity'
 	at org.hibernate.query.hql.internal.StandardHqlTranslator.translate(StandardHqlTranslator.java:90) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.createHqlInterpretation(QueryInterpretationCacheStandardImpl.java:165) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.resolveHqlInterpretation(QueryInterpretationCacheStandardImpl.java:147) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.internal.AbstractSharedSessionContract.interpretHql(AbstractSharedSessionContract.java:744) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:794) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	... 5 more
-Caused by: org.hibernate.query.sqm.EntityTypeException: Could not resolve entity class 'com.example.entity.User'
+Caused by: org.hibernate.query.sqm.EntityTypeException: Could not resolve entity class 'com.example.entity.UserEntity'
 	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.resolveEntityReference(JpaMetamodelImpl.java:490) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.getHqlEntityReference(JpaMetamodelImpl.java:158) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitRootEntity(SemanticQueryBuilder.java:1936) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
@@ -858,7 +858,7 @@ java.lang.RuntimeException: Failed to find all users
 	at com.example.Main.findAllUsers(Main.java:152) ~[classes/:?]
 	at com.example.Main.showMenu(Main.java:86) [classes/:?]
 	at com.example.Main.main(Main.java:52) [classes/:?]
-Caused by: java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.User'
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.UserEntity'
 	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:143) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:167) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:173) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
@@ -866,7 +866,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEn
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:132) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at com.example.dao.UserDaoImpl.findAll(UserDaoImpl.java:56) ~[classes/:?]
 	... 3 more
-Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.User'
+Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve entity class 'com.example.entity.UserEntity'
 	at org.hibernate.query.hql.internal.StandardHqlTranslator.translate(StandardHqlTranslator.java:90) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.createHqlInterpretation(QueryInterpretationCacheStandardImpl.java:165) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.resolveHqlInterpretation(QueryInterpretationCacheStandardImpl.java:147) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
@@ -875,7 +875,7 @@ Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve ent
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:132) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at com.example.dao.UserDaoImpl.findAll(UserDaoImpl.java:56) ~[classes/:?]
 	... 3 more
-Caused by: org.hibernate.query.sqm.EntityTypeException: Could not resolve entity class 'com.example.entity.User'
+Caused by: org.hibernate.query.sqm.EntityTypeException: Could not resolve entity class 'com.example.entity.UserEntity'
 	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.resolveEntityReference(JpaMetamodelImpl.java:490) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.getHqlEntityReference(JpaMetamodelImpl.java:158) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
 	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitRootEntity(SemanticQueryBuilder.java:1936) ~[hibernate-core-6.3.1.Final.jar:6.3.1.Final]
@@ -1052,3 +1052,328 @@ Caused by: org.hibernate.query.sqm.EntityTypeException: Could not resolve entity
 2025-10-29 21:51:27.941 [main] DEBUG com.example.dao.UserDaoImpl - Found 1 users
 2025-10-29 21:53:45.524 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:postgresql://localhost:5432/user_db]
 2025-10-29 21:53:45.526 [main] INFO  com.example.Main - User Service application stopped
+2025-11-04 15:16:33.296 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.0.Final
+2025-11-04 15:16:33.299 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-11-04 15:16:33.739 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-11-04 15:16:33.742 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2025-11-04 15:16:33.742 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/user_db]
+2025-11-04 15:16:33.742 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2025-11-04 15:16:33.742 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-11-04 15:16:33.744 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 10 (min=1)
+2025-11-04 15:16:33.940 [main] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2025-11-04 15:16:34.111 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-11-04 15:16:34.649 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-11-04 15:16:34.666 [main] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@21390938] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-11-04 15:16:34.771 [main] INFO  com.example.Main - Starting User Service application
+2025-11-04 15:16:39.134 [main] DEBUG com.example.service.UserServiceImpl - Getting all users
+2025-11-04 15:16:39.328 [main] DEBUG com.example.dao.UserDaoImpl - Found 31 users
+2025-11-04 15:17:09.044 [main] DEBUG com.example.service.UserServiceImpl - Attempting to create user with email: ivan@mail.com
+2025-11-04 15:17:09.169 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: ivan@mail.com
+2025-11-04 15:17:09.169 [main] INFO  com.example.service.UserServiceImpl - User created successfully with ID: 57
+2025-11-04 15:17:16.874 [main] DEBUG com.example.service.UserServiceImpl - Getting all users
+2025-11-04 15:17:16.879 [main] DEBUG com.example.dao.UserDaoImpl - Found 32 users
+2025-11-04 15:23:04.197 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:postgresql://localhost:5432/user_db]
+2025-11-04 15:23:04.199 [main] INFO  com.example.Main - User Service application stopped
+2025-11-04 15:24:35.242 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.0.Final
+2025-11-04 15:24:35.246 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-11-04 15:24:35.402 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-11-04 15:24:35.423 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2025-11-04 15:24:35.423 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:59536/test_db?loggerLevel=OFF]
+2025-11-04 15:24:35.423 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=test_user}
+2025-11-04 15:24:35.423 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-11-04 15:24:35.425 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-11-04 15:24:35.609 [main] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2025-11-04 15:24:35.804 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-11-04 15:24:36.443 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-11-04 15:24:36.458 [main] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5d96d434] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-11-04 15:24:36.463 [main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2025-11-04 15:24:36.463 [main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - table "users" does not exist, skipping
+2025-11-04 15:24:36.469 [main] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7db162f2] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-11-04 15:24:36.481 [main] INFO  org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase - HHH000476: Executing script '[injected ScriptSourceInputNonExistentImpl script]'
+2025-11-04 15:24:36.880 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:24:36.911 [main] DEBUG com.example.dao.UserDaoImpl - Found 0 users
+2025-11-04 15:24:36.927 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:24:36.932 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: jane@example.com
+2025-11-04 15:24:36.936 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: bob@example.com
+2025-11-04 15:24:36.948 [main] DEBUG com.example.dao.UserDaoImpl - Found 3 users
+2025-11-04 15:24:36.965 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:24:36.995 [main] INFO  com.example.dao.UserDaoImpl - User updated successfully: john@example.com
+2025-11-04 15:24:37.010 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:24:37.016 [main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
+2025-11-04 15:24:37.017 [main] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - ERROR: duplicate key value violates unique constraint "users_email_key"
+  Подробности: Key (email)=(john@example.com) already exists.
+2025-11-04 15:24:37.038 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:24:37.065 [main] DEBUG com.example.dao.UserDaoImpl - User not found by email: notfound@example.com
+2025-11-04 15:24:37.077 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:24:37.086 [main] DEBUG com.example.dao.UserDaoImpl - User found by id: 9
+2025-11-04 15:24:37.100 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:24:37.107 [main] INFO  com.example.dao.UserDaoImpl - User updated successfully: john@example.com
+2025-11-04 15:24:37.114 [main] DEBUG com.example.dao.UserDaoImpl - User found by id: 10
+2025-11-04 15:24:37.128 [main] DEBUG com.example.dao.UserDaoImpl - User not found by id: 999
+2025-11-04 15:24:37.144 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:24:37.149 [main] DEBUG com.example.dao.UserDaoImpl - User found by email: john@example.com
+2025-11-04 15:24:37.176 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:24:37.180 [main] INFO  com.example.dao.UserDaoImpl - User deleted successfully, id: 12
+2025-11-04 15:24:37.191 [main] DEBUG com.example.dao.UserDaoImpl - User not found by id: 12
+2025-11-04 15:24:37.205 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:24:37.221 [main] WARN  com.example.dao.UserDaoImpl - User not found for deletion, id: 999
+2025-11-04 15:24:37.238 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:24:37.243 [main] DEBUG com.example.dao.UserDaoImpl - User found by id: 14
+2025-11-04 15:24:37.250 [main] INFO  com.example.dao.UserDaoImpl - User updated successfully: john@example.com
+2025-11-04 15:24:37.253 [main] INFO  com.example.dao.UserDaoImpl - User deleted successfully, id: 14
+2025-11-04 15:24:37.261 [main] DEBUG com.example.dao.UserDaoImpl - User not found by id: 14
+2025-11-04 15:24:37.275 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: user1@example.com
+2025-11-04 15:24:37.282 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: user2@example.com
+2025-11-04 15:24:37.287 [main] DEBUG com.example.dao.UserDaoImpl - User found by id: 15
+2025-11-04 15:24:37.292 [main] DEBUG com.example.dao.UserDaoImpl - User found by email: user2@example.com
+2025-11-04 15:24:37.297 [main] DEBUG com.example.dao.UserDaoImpl - Found 2 users
+2025-11-04 15:24:37.312 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:24:37.315 [main] INFO  com.example.dao.UserDaoImpl - User deleted successfully, id: 17
+2025-11-04 15:24:37.323 [main] DEBUG com.example.dao.UserDaoImpl - User not found by id: 17
+2025-11-04 15:24:38.373 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: null
+2025-11-04 15:24:38.375 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: 0
+2025-11-04 15:24:38.375 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: -1
+2025-11-04 15:24:38.430 [main] DEBUG com.example.service.UserServiceImpl - Getting user by email: john@example.com
+2025-11-04 15:24:38.443 [main] DEBUG com.example.service.UserServiceImpl - Attempting to update user with ID: 999
+2025-11-04 15:24:38.450 [main] DEBUG com.example.service.UserServiceImpl - Attempting to create user with email: 
+2025-11-04 15:24:38.463 [main] DEBUG com.example.service.UserServiceImpl - Getting all users
+2025-11-04 15:24:38.470 [main] DEBUG com.example.service.UserServiceImpl - Attempting to update user with ID: 1
+2025-11-04 15:24:38.471 [main] INFO  com.example.service.UserServiceImpl - User updated successfully with ID: 1
+2025-11-04 15:24:38.499 [main] DEBUG com.example.service.UserServiceImpl - Getting user by email: notfound@example.com
+2025-11-04 15:24:38.503 [main] DEBUG com.example.service.UserServiceImpl - Getting all users
+2025-11-04 15:24:38.508 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: null
+2025-11-04 15:24:38.509 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 0
+2025-11-04 15:24:38.509 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: -1
+2025-11-04 15:24:38.513 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 1
+2025-11-04 15:24:38.518 [main] DEBUG com.example.service.UserServiceImpl - Attempting to create user with email: john@example.com
+2025-11-04 15:24:38.519 [main] INFO  com.example.service.UserServiceImpl - User created successfully with ID: 1
+2025-11-04 15:24:38.523 [main] DEBUG com.example.service.UserServiceImpl - Getting user by email: 
+2025-11-04 15:24:38.524 [main] DEBUG com.example.service.UserServiceImpl - Getting user by email: null
+2025-11-04 15:24:38.528 [main] DEBUG com.example.service.UserServiceImpl - Attempting to update user with ID: null
+2025-11-04 15:24:38.532 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: 1
+2025-11-04 15:24:38.533 [main] INFO  com.example.service.UserServiceImpl - User deleted successfully with ID: 1
+2025-11-04 15:24:38.539 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 1
+2025-11-04 15:24:38.543 [main] DEBUG com.example.service.UserServiceImpl - Attempting to create user with email: john@example.com
+2025-11-04 15:24:38.552 [main] DEBUG com.example.service.UserServiceImpl - Attempting to create user with email: john@example.com
+2025-11-04 15:24:38.553 [main] INFO  com.example.service.UserServiceImpl - User created successfully with ID: 1
+2025-11-04 15:24:38.554 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 1
+2025-11-04 15:24:38.555 [main] DEBUG com.example.service.UserServiceImpl - Attempting to update user with ID: 1
+2025-11-04 15:24:38.555 [main] INFO  com.example.service.UserServiceImpl - User updated successfully with ID: 1
+2025-11-04 15:24:38.555 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: 1
+2025-11-04 15:24:38.556 [main] INFO  com.example.service.UserServiceImpl - User deleted successfully with ID: 1
+2025-11-04 15:24:38.560 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 999
+2025-11-04 15:24:38.565 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: 999
+2025-11-04 15:24:38.572 [main] DEBUG com.example.service.UserServiceImpl - Attempting to create user with email: john@example.com
+2025-11-04 15:42:19.848 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.0.Final
+2025-11-04 15:42:19.852 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-11-04 15:42:19.982 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-11-04 15:42:19.998 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2025-11-04 15:42:19.999 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:53988/test_db?loggerLevel=OFF]
+2025-11-04 15:42:19.999 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=test_user}
+2025-11-04 15:42:19.999 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-11-04 15:42:20.001 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-11-04 15:42:20.214 [main] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2025-11-04 15:42:20.390 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-11-04 15:42:21.087 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-11-04 15:42:21.101 [main] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2ecdf528] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-11-04 15:42:21.105 [main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2025-11-04 15:42:21.105 [main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - table "users" does not exist, skipping
+2025-11-04 15:42:21.111 [main] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@37986daf] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-11-04 15:42:21.123 [main] INFO  org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase - HHH000476: Executing script '[injected ScriptSourceInputNonExistentImpl script]'
+2025-11-04 15:42:21.483 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:42:21.510 [main] DEBUG com.example.dao.UserDaoImpl - Found 0 users
+2025-11-04 15:42:21.523 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:42:21.527 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: jane@example.com
+2025-11-04 15:42:21.531 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: bob@example.com
+2025-11-04 15:42:21.543 [main] DEBUG com.example.dao.UserDaoImpl - Found 3 users
+2025-11-04 15:42:21.557 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:42:21.580 [main] INFO  com.example.dao.UserDaoImpl - User updated successfully: john@example.com
+2025-11-04 15:42:21.594 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:42:21.600 [main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
+2025-11-04 15:42:21.600 [main] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - ERROR: duplicate key value violates unique constraint "users_email_key"
+  Подробности: Key (email)=(john@example.com) already exists.
+2025-11-04 15:42:21.620 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:42:21.641 [main] DEBUG com.example.dao.UserDaoImpl - User not found by email: notfound@example.com
+2025-11-04 15:42:21.655 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:42:21.668 [main] DEBUG com.example.dao.UserDaoImpl - User found by id: 9
+2025-11-04 15:42:21.682 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:42:21.689 [main] INFO  com.example.dao.UserDaoImpl - User updated successfully: john@example.com
+2025-11-04 15:42:21.695 [main] DEBUG com.example.dao.UserDaoImpl - User found by id: 10
+2025-11-04 15:42:21.708 [main] DEBUG com.example.dao.UserDaoImpl - User not found by id: 999
+2025-11-04 15:42:21.723 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:42:21.728 [main] DEBUG com.example.dao.UserDaoImpl - User found by email: john@example.com
+2025-11-04 15:42:21.756 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:42:21.761 [main] INFO  com.example.dao.UserDaoImpl - User deleted successfully, id: 12
+2025-11-04 15:42:21.771 [main] DEBUG com.example.dao.UserDaoImpl - User not found by id: 12
+2025-11-04 15:42:21.783 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:42:21.797 [main] WARN  com.example.dao.UserDaoImpl - User not found for deletion, id: 999
+2025-11-04 15:42:21.810 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:42:21.814 [main] DEBUG com.example.dao.UserDaoImpl - User found by id: 14
+2025-11-04 15:42:21.821 [main] INFO  com.example.dao.UserDaoImpl - User updated successfully: john@example.com
+2025-11-04 15:42:21.824 [main] INFO  com.example.dao.UserDaoImpl - User deleted successfully, id: 14
+2025-11-04 15:42:21.831 [main] DEBUG com.example.dao.UserDaoImpl - User not found by id: 14
+2025-11-04 15:42:21.844 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: user1@example.com
+2025-11-04 15:42:21.849 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: user2@example.com
+2025-11-04 15:42:21.854 [main] DEBUG com.example.dao.UserDaoImpl - User found by id: 15
+2025-11-04 15:42:21.858 [main] DEBUG com.example.dao.UserDaoImpl - User found by email: user2@example.com
+2025-11-04 15:42:21.863 [main] DEBUG com.example.dao.UserDaoImpl - Found 2 users
+2025-11-04 15:42:21.878 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:42:21.880 [main] INFO  com.example.dao.UserDaoImpl - User deleted successfully, id: 17
+2025-11-04 15:42:21.888 [main] DEBUG com.example.dao.UserDaoImpl - User not found by id: 17
+2025-11-04 15:42:22.801 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: null
+2025-11-04 15:42:22.802 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: 0
+2025-11-04 15:42:22.803 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: -1
+2025-11-04 15:42:22.849 [main] DEBUG com.example.service.UserServiceImpl - Getting user by email: john@example.com
+2025-11-04 15:42:22.860 [main] DEBUG com.example.service.UserServiceImpl - Attempting to update user with ID: 999
+2025-11-04 15:42:22.874 [main] DEBUG com.example.service.UserServiceImpl - Getting all users
+2025-11-04 15:42:22.882 [main] DEBUG com.example.service.UserServiceImpl - Attempting to update user with ID: 1
+2025-11-04 15:42:22.883 [main] INFO  com.example.service.UserServiceImpl - User updated successfully with ID: 1
+2025-11-04 15:42:22.901 [main] DEBUG com.example.service.UserServiceImpl - Getting user by email: notfound@example.com
+2025-11-04 15:42:22.905 [main] DEBUG com.example.service.UserServiceImpl - Getting all users
+2025-11-04 15:42:22.914 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: null
+2025-11-04 15:42:22.915 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 0
+2025-11-04 15:42:22.916 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: -1
+2025-11-04 15:42:22.919 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 1
+2025-11-04 15:42:22.925 [main] DEBUG com.example.service.UserServiceImpl - Attempting to create user with email: john@example.com
+2025-11-04 15:42:22.925 [main] INFO  com.example.service.UserServiceImpl - User created successfully with ID: 1
+2025-11-04 15:42:22.931 [main] DEBUG com.example.service.UserServiceImpl - Getting user by email: 
+2025-11-04 15:42:22.931 [main] DEBUG com.example.service.UserServiceImpl - Getting user by email: null
+2025-11-04 15:42:22.938 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: 1
+2025-11-04 15:42:22.940 [main] INFO  com.example.service.UserServiceImpl - User deleted successfully with ID: 1
+2025-11-04 15:42:22.946 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 1
+2025-11-04 15:42:22.956 [main] DEBUG com.example.service.UserServiceImpl - Attempting to create user with email: john@example.com
+2025-11-04 15:42:22.957 [main] INFO  com.example.service.UserServiceImpl - User created successfully with ID: 1
+2025-11-04 15:42:22.957 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 1
+2025-11-04 15:42:22.959 [main] DEBUG com.example.service.UserServiceImpl - Attempting to update user with ID: 1
+2025-11-04 15:42:22.959 [main] INFO  com.example.service.UserServiceImpl - User updated successfully with ID: 1
+2025-11-04 15:42:22.959 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: 1
+2025-11-04 15:42:22.959 [main] INFO  com.example.service.UserServiceImpl - User deleted successfully with ID: 1
+2025-11-04 15:42:22.962 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 999
+2025-11-04 15:42:22.966 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: 999
+2025-11-04 15:42:22.973 [main] DEBUG com.example.service.UserServiceImpl - Attempting to create user with email: john@example.com
+2025-11-04 15:43:13.952 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.0.Final
+2025-11-04 15:43:13.955 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-11-04 15:43:14.411 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-11-04 15:43:14.415 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2025-11-04 15:43:14.415 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/user_db]
+2025-11-04 15:43:14.415 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2025-11-04 15:43:14.415 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-11-04 15:43:14.418 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 10 (min=1)
+2025-11-04 15:43:14.627 [main] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2025-11-04 15:43:14.807 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-11-04 15:43:15.318 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-11-04 15:43:15.334 [main] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1cd6b1bd] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-11-04 15:43:15.427 [main] INFO  com.example.Main - Starting User Service application
+2025-11-04 15:43:18.434 [main] DEBUG com.example.service.UserServiceImpl - Getting all users
+2025-11-04 15:43:18.697 [main] DEBUG com.example.dao.UserDaoImpl - Found 32 users
+2025-11-04 15:56:32.385 [com.example.Main.main()] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.0.Final
+2025-11-04 15:56:32.389 [com.example.Main.main()] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-11-04 15:56:32.736 [com.example.Main.main()] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-11-04 15:56:32.739 [com.example.Main.main()] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2025-11-04 15:56:32.739 [com.example.Main.main()] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/user_db]
+2025-11-04 15:56:32.739 [com.example.Main.main()] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2025-11-04 15:56:32.740 [com.example.Main.main()] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-11-04 15:56:32.741 [com.example.Main.main()] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 10 (min=1)
+2025-11-04 15:56:32.940 [com.example.Main.main()] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2025-11-04 15:56:33.130 [com.example.Main.main()] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-11-04 15:56:33.719 [com.example.Main.main()] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-11-04 15:56:33.740 [com.example.Main.main()] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1ea0a2e1] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-11-04 15:56:33.814 [com.example.Main.main()] INFO  com.example.Main - Starting User Service application
+2025-11-04 15:56:44.396 [com.example.Main.main()] DEBUG com.example.service.UserServiceImpl - Getting all users
+2025-11-04 15:56:44.548 [com.example.Main.main()] DEBUG com.example.dao.UserDaoImpl - Found 32 users
+2025-11-04 15:56:53.850 [com.example.Main.main()] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 56
+2025-11-04 15:56:53.887 [com.example.Main.main()] DEBUG com.example.dao.UserDaoImpl - User found by id: 56
+2025-11-04 15:57:04.945 [com.example.Main.main()] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: 57
+2025-11-04 15:57:04.985 [com.example.Main.main()] INFO  com.example.dao.UserDaoImpl - User deleted successfully, id: 57
+2025-11-04 15:57:05.004 [com.example.Main.main()] INFO  com.example.service.UserServiceImpl - User deleted successfully with ID: 57
+2025-11-04 15:57:11.388 [com.example.Main.main()] DEBUG com.example.service.UserServiceImpl - Getting all users
+2025-11-04 15:57:11.393 [com.example.Main.main()] DEBUG com.example.dao.UserDaoImpl - Found 31 users
+2025-11-04 15:57:17.498 [com.example.Main.main()] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:postgresql://localhost:5432/user_db]
+2025-11-04 15:57:17.499 [com.example.Main.main()] INFO  com.example.Main - User Service application stopped
+2025-11-04 15:59:51.422 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.0.Final
+2025-11-04 15:59:51.426 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-11-04 15:59:51.581 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-11-04 15:59:51.602 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2025-11-04 15:59:51.603 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:56361/test_db?loggerLevel=OFF]
+2025-11-04 15:59:51.603 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=test_user}
+2025-11-04 15:59:51.603 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-11-04 15:59:51.605 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-11-04 15:59:51.814 [main] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2025-11-04 15:59:51.993 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-11-04 15:59:52.641 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-11-04 15:59:52.655 [main] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@574ebdaf] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-11-04 15:59:52.661 [main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2025-11-04 15:59:52.662 [main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - table "users" does not exist, skipping
+2025-11-04 15:59:52.670 [main] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@c82d925] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-11-04 15:59:52.682 [main] INFO  org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase - HHH000476: Executing script '[injected ScriptSourceInputNonExistentImpl script]'
+2025-11-04 15:59:53.040 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:59:53.068 [main] DEBUG com.example.dao.UserDaoImpl - Found 0 users
+2025-11-04 15:59:53.079 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:59:53.083 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: jane@example.com
+2025-11-04 15:59:53.088 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: bob@example.com
+2025-11-04 15:59:53.101 [main] DEBUG com.example.dao.UserDaoImpl - Found 3 users
+2025-11-04 15:59:53.113 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:59:53.138 [main] INFO  com.example.dao.UserDaoImpl - User updated successfully: john@example.com
+2025-11-04 15:59:53.150 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:59:53.156 [main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
+2025-11-04 15:59:53.156 [main] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - ERROR: duplicate key value violates unique constraint "users_email_key"
+  Подробности: Key (email)=(john@example.com) already exists.
+2025-11-04 15:59:53.175 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:59:53.195 [main] DEBUG com.example.dao.UserDaoImpl - User not found by email: notfound@example.com
+2025-11-04 15:59:53.209 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:59:53.216 [main] DEBUG com.example.dao.UserDaoImpl - User found by id: 9
+2025-11-04 15:59:53.232 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:59:53.240 [main] INFO  com.example.dao.UserDaoImpl - User updated successfully: john@example.com
+2025-11-04 15:59:53.246 [main] DEBUG com.example.dao.UserDaoImpl - User found by id: 10
+2025-11-04 15:59:53.261 [main] DEBUG com.example.dao.UserDaoImpl - User not found by id: 999
+2025-11-04 15:59:53.280 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:59:53.284 [main] DEBUG com.example.dao.UserDaoImpl - User found by email: john@example.com
+2025-11-04 15:59:53.316 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:59:53.324 [main] INFO  com.example.dao.UserDaoImpl - User deleted successfully, id: 12
+2025-11-04 15:59:53.338 [main] DEBUG com.example.dao.UserDaoImpl - User not found by id: 12
+2025-11-04 15:59:53.350 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:59:53.366 [main] WARN  com.example.dao.UserDaoImpl - User not found for deletion, id: 999
+2025-11-04 15:59:53.383 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:59:53.388 [main] DEBUG com.example.dao.UserDaoImpl - User found by id: 14
+2025-11-04 15:59:53.395 [main] INFO  com.example.dao.UserDaoImpl - User updated successfully: john@example.com
+2025-11-04 15:59:53.398 [main] INFO  com.example.dao.UserDaoImpl - User deleted successfully, id: 14
+2025-11-04 15:59:53.405 [main] DEBUG com.example.dao.UserDaoImpl - User not found by id: 14
+2025-11-04 15:59:53.420 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: user1@example.com
+2025-11-04 15:59:53.426 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: user2@example.com
+2025-11-04 15:59:53.430 [main] DEBUG com.example.dao.UserDaoImpl - User found by id: 15
+2025-11-04 15:59:53.435 [main] DEBUG com.example.dao.UserDaoImpl - User found by email: user2@example.com
+2025-11-04 15:59:53.440 [main] DEBUG com.example.dao.UserDaoImpl - Found 2 users
+2025-11-04 15:59:53.456 [main] INFO  com.example.dao.UserDaoImpl - User saved successfully: john@example.com
+2025-11-04 15:59:53.458 [main] INFO  com.example.dao.UserDaoImpl - User deleted successfully, id: 17
+2025-11-04 15:59:53.464 [main] DEBUG com.example.dao.UserDaoImpl - User not found by id: 17
+2025-11-04 15:59:54.384 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: null
+2025-11-04 15:59:54.385 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: 0
+2025-11-04 15:59:54.385 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: -1
+2025-11-04 15:59:54.428 [main] DEBUG com.example.service.UserServiceImpl - Getting user by email: john@example.com
+2025-11-04 15:59:54.437 [main] DEBUG com.example.service.UserServiceImpl - Attempting to update user with ID: 999
+2025-11-04 15:59:54.452 [main] DEBUG com.example.service.UserServiceImpl - Getting all users
+2025-11-04 15:59:54.458 [main] DEBUG com.example.service.UserServiceImpl - Attempting to update user with ID: 1
+2025-11-04 15:59:54.458 [main] INFO  com.example.service.UserServiceImpl - User updated successfully with ID: 1
+2025-11-04 15:59:54.472 [main] DEBUG com.example.service.UserServiceImpl - Getting user by email: notfound@example.com
+2025-11-04 15:59:54.477 [main] DEBUG com.example.service.UserServiceImpl - Getting all users
+2025-11-04 15:59:54.485 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: null
+2025-11-04 15:59:54.486 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 0
+2025-11-04 15:59:54.487 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: -1
+2025-11-04 15:59:54.491 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 1
+2025-11-04 15:59:54.497 [main] DEBUG com.example.service.UserServiceImpl - Attempting to create user with email: john@example.com
+2025-11-04 15:59:54.498 [main] INFO  com.example.service.UserServiceImpl - User created successfully with ID: 1
+2025-11-04 15:59:54.502 [main] DEBUG com.example.service.UserServiceImpl - Getting user by email: 
+2025-11-04 15:59:54.503 [main] DEBUG com.example.service.UserServiceImpl - Getting user by email: null
+2025-11-04 15:59:54.510 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: 1
+2025-11-04 15:59:54.510 [main] INFO  com.example.service.UserServiceImpl - User deleted successfully with ID: 1
+2025-11-04 15:59:54.516 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 1
+2025-11-04 15:59:54.526 [main] DEBUG com.example.service.UserServiceImpl - Attempting to create user with email: john@example.com
+2025-11-04 15:59:54.526 [main] INFO  com.example.service.UserServiceImpl - User created successfully with ID: 1
+2025-11-04 15:59:54.527 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 1
+2025-11-04 15:59:54.527 [main] DEBUG com.example.service.UserServiceImpl - Attempting to update user with ID: 1
+2025-11-04 15:59:54.528 [main] INFO  com.example.service.UserServiceImpl - User updated successfully with ID: 1
+2025-11-04 15:59:54.528 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: 1
+2025-11-04 15:59:54.528 [main] INFO  com.example.service.UserServiceImpl - User deleted successfully with ID: 1
+2025-11-04 15:59:54.532 [main] DEBUG com.example.service.UserServiceImpl - Getting user by ID: 999
+2025-11-04 15:59:54.535 [main] DEBUG com.example.service.UserServiceImpl - Attempting to delete user with ID: 999
+2025-11-04 15:59:54.543 [main] DEBUG com.example.service.UserServiceImpl - Attempting to create user with email: john@example.com

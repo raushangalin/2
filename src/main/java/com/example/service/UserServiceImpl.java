@@ -1,113 +1,106 @@
 package com.example.service;
 
-import com.example.dao.UserDao;
 import com.example.entity.UserEntity;
+import com.example.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Реализация UserService
- * Содержит бизнес-логику и делегирует DAO-операции UserDao
+ * Service implementation for managing users with Spring Data JPA
  */
+@Service
 public class UserServiceImpl implements UserService {
-
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
-    private final UserDao userDao;
 
-    public UserServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    private final UserRepository userRepository;
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserEntity createUser(UserEntity userEntity) {
-
-        // Валидация
         if (userEntity == null) {
             throw new IllegalArgumentException("User entity cannot be null");
         }
-        if (userEntity.getEmail() == null || userEntity.getEmail().trim().isEmpty()) {
-            throw new IllegalArgumentException("User email cannot be null or empty");
-        }
-        if (userEntity.getName() == null || userEntity.getName().trim().isEmpty()) {
-            throw new IllegalArgumentException("User name cannot be null or empty");
-        }
-        logger.debug("Attempting to create user with email: {}", userEntity.getEmail());
 
-        // Проверка уникальности email
-        if (userDao.existsByEmail(userEntity.getEmail())) {
+        if (userEntity.getEmail() == null || userEntity.getEmail().trim().isEmpty()) {
+            throw new IllegalArgumentException("User email cannot be empty");
+        }
+
+        if (userEntity.getName() == null || userEntity.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("User name cannot be empty");
+        }
+
+        if (userRepository.existsByEmail(userEntity.getEmail())) {
             throw new IllegalArgumentException("User with email " + userEntity.getEmail() + " already exists");
         }
 
-        UserEntity saved = userDao.save(userEntity);
-        logger.info("User created successfully with ID: {}", saved.getId());
+        UserEntity savedUser = userRepository.save(userEntity);
+        logger.info("User created successfully with ID: {}", savedUser.getId());
 
-        return saved;
+        return savedUser;
     }
 
     @Override
     public Optional<UserEntity> getUserById(Long id) {
-        logger.debug("Getting user by ID: {}", id);
         if (id == null || id <= 0) {
-            throw new IllegalArgumentException("Invalid user ID");
+            throw new IllegalArgumentException("User ID must be valid");
         }
 
-        return userDao.findById(id);
+        return userRepository.findById(id);
     }
 
     @Override
     public List<UserEntity> getAllUsers() {
-        logger.debug("Getting all users");
 
-        return userDao.findAll();
+        return userRepository.findAll();
     }
 
     @Override
     public Optional<UserEntity> getUserByEmail(String email) {
-        logger.debug("Getting user by email: {}", email);
         if (email == null || email.trim().isEmpty()) {
-            throw new IllegalArgumentException("Email cannot be null or empty");
+            throw new IllegalArgumentException("Email cannot be empty");
         }
 
-        return userDao.findByEmail(email);
+        return userRepository.findByEmail(email);
     }
 
     @Override
     public UserEntity updateUser(UserEntity userEntity) {
-
         if (userEntity == null) {
             throw new IllegalArgumentException("User entity cannot be null");
         }
+
         if (userEntity.getId() == null || userEntity.getId() <= 0) {
-            throw new IllegalArgumentException("Invalid user ID for update");
+            throw new IllegalArgumentException("User ID must be valid for update");
         }
 
-        logger.debug("Attempting to update user with ID: {}", userEntity.getId());
-        // Проверка существования пользователя
-        if (!userDao.existsById(userEntity.getId())) {
-            throw new IllegalArgumentException("User with ID " + userEntity.getId() + " not found");
+        if (!userRepository.existsById(userEntity.getId())) {
+            throw new IllegalArgumentException("User with ID " + userEntity.getId() + " does not exist");
         }
 
-        UserEntity updated = userDao.update(userEntity);
-        logger.info("User updated successfully with ID: {}", updated.getId());
+        UserEntity updatedUser = userRepository.save(userEntity);
+        logger.info("User updated successfully with ID: {}", updatedUser.getId());
 
-        return updated;
+        return updatedUser;
     }
 
     @Override
     public void deleteUser(Long id) {
-        logger.debug("Attempting to delete user with ID: {}", id);
-
         if (id == null || id <= 0) {
-            throw new IllegalArgumentException("Invalid user ID");
+            throw new IllegalArgumentException("User ID must be valid");
         }
 
-        if (!userDao.existsById(id)) {
-            throw new IllegalArgumentException("User with ID " + id + " not found");
+        if (!userRepository.existsById(id)) {
+            throw new IllegalArgumentException("User with ID " + id + " does not exist");
         }
 
-        userDao.delete(id);
+        userRepository.deleteById(id);
         logger.info("User deleted successfully with ID: {}", id);
     }
 
@@ -118,7 +111,7 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
-        return userDao.existsById(id);
+        return userRepository.existsById(id);
     }
 
     @Override
@@ -128,6 +121,6 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
-        return userDao.existsByEmail(email);
+        return userRepository.existsByEmail(email);
     }
 }

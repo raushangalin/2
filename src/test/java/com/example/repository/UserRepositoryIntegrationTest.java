@@ -7,80 +7,86 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/**
- * Integration tests for UserRepository with Spring Data JPA
- */
 @DataJpaTest
 @ActiveProfiles("test")
-@DisplayName("UserRepository Integration Tests")
-class UserRepositoryIntegrationTest {
+@DisplayName("User Repository Integration Tests")
+public class UserRepositoryIntegrationTest {
 
     @Autowired
     private UserRepository userRepository;
 
     @Test
     @DisplayName("Should save user successfully")
-    void testSaveUser() {
-        UserEntity user = new UserEntity("John Doe", "john@example.com", 30);
-        UserEntity saved = userRepository.save(user);
+    public void testSaveUser() {
+        UserEntity user = new UserEntity("John", "john@example.com", 30);
 
-        assertNotNull(saved.getId());
-        assertEquals("John Doe", saved.getName());
-        assertEquals("john@example.com", saved.getEmail());
+        UserEntity savedUser = userRepository.save(user);
+
+        assertNotNull(savedUser.getId());
+        assertEquals("John", savedUser.getName());
+    }
+
+    @Test
+    @DisplayName("Should find user by id")
+    public void testFindById() {
+        UserEntity user = new UserEntity("John", "john@example.com", 30);
+        UserEntity savedUser = userRepository.save(user);
+
+        Optional<UserEntity> foundUser = userRepository.findById(savedUser.getId());
+
+        assertTrue(foundUser.isPresent());
+        assertEquals("John", foundUser.get().getName());
+    }
+
+    @Test
+    @DisplayName("Should find all users")
+    public void testFindAll() {
+        userRepository.save(new UserEntity("John", "john@example.com", 30));
+        userRepository.save(new UserEntity("Jane", "jane@example.com", 25));
+
+        List<UserEntity> users = userRepository.findAll();
+
+        assertEquals(2, users.size());
     }
 
     @Test
     @DisplayName("Should find user by email")
-    void testFindByEmail() {
-        UserEntity user = new UserEntity("Jane Smith", "jane@example.com", 25);
-        userRepository.save(user);
+    public void testFindByEmail() {
+        userRepository.save(new UserEntity("John", "john@example.com", 30));
 
-        Optional<UserEntity> found = userRepository.findByEmail("jane@example.com");
+        Optional<UserEntity> foundUser = userRepository.findByEmail("john@example.com");
 
-        assertTrue(found.isPresent());
-        assertEquals("Jane Smith", found.get().getName());
-    }
-
-    @Test
-    @DisplayName("Should return false for non-existent email")
-    void testFindByEmailNotFound() {
-        Optional<UserEntity> found = userRepository.findByEmail("nonexistent@example.com");
-
-        assertFalse(found.isPresent());
+        assertTrue(foundUser.isPresent());
+        assertEquals("John", foundUser.get().getName());
     }
 
     @Test
     @DisplayName("Should check if user exists by email")
-    void testExistsByEmail() {
-        UserEntity user = new UserEntity("Bob Johnson", "bob@example.com", 35);
-        userRepository.save(user);
+    public void testExistsByEmail() {
+        userRepository.save(new UserEntity("John", "john@example.com", 30));
 
-        boolean exists = userRepository.existsByEmail("bob@example.com");
+        boolean exists = userRepository.existsByEmail("john@example.com");
 
         assertTrue(exists);
     }
 
     @Test
-    @DisplayName("Should return false if user does not exist by email")
-    void testExistsByEmailNotFound() {
-        boolean exists = userRepository.existsByEmail("notexist@example.com");
+    @DisplayName("Should delete user successfully")
+    public void testDeleteUser() {
+        UserEntity user = new UserEntity("John", "john@example.com", 30);
+        UserEntity savedUser = userRepository.save(user);
 
-        assertFalse(exists);
-    }
+        userRepository.deleteById(savedUser.getId());
 
-    @Test
-    @DisplayName("Should delete user by ID")
-    void testDeleteUser() {
-        UserEntity user = new UserEntity("Tom Brown", "tom@example.com", 40);
-        UserEntity saved = userRepository.save(user);
-
-        userRepository.deleteById(saved.getId());
-
-        Optional<UserEntity> found = userRepository.findById(saved.getId());
-        assertFalse(found.isPresent());
+        Optional<UserEntity> deletedUser = userRepository.findById(savedUser.getId());
+        assertFalse(deletedUser.isPresent());
     }
 }

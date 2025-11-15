@@ -1,18 +1,10 @@
 package com.example.service;
 
-import com.example.entity.UserEntity;
-
+import com.example.dto.UserDTO;
 import java.util.List;
 import java.util.Optional;
-
 /**
- * Service interface for managing User entities.
- * Defines business logic operations for user management including CRUD operations.
- *
- * Implementations must handle:
- * - Input validation
- * - Exception handling
- * - Transaction management
+ * Service interface for managing Users.
  */
 public interface UserService {
 
@@ -20,13 +12,13 @@ public interface UserService {
      * Creates a new user in the database.
      * Validates input and checks for duplicate emails.
      *
-     * @param userEntity the user entity to create, must not be null
+     * @param userDTO the user entity to create, must not be null
      * @return the created UserEntity with generated ID
      * @throws IllegalArgumentException if user data is invalid or email already exists
      * @throws IllegalArgumentException if email is empty or null
      * @throws IllegalArgumentException if name is empty or null
      */
-    UserEntity createUser(UserEntity userEntity);
+    UserDTO createUser(UserDTO userDTO);
 
     /**
      * Retrieves a user by their unique identifier.
@@ -35,14 +27,14 @@ public interface UserService {
      * @return Optional containing the user if found, empty Optional otherwise
      * @throws IllegalArgumentException if ID is null or invalid (less than or equal to 0)
      */
-    Optional<UserEntity> getUserById(Long id);
+    Optional<UserDTO> getUserById(Long id);
 
     /**
      * Retrieves all users from the database.
      *
      * @return List of all users, empty list if no users exist
      */
-    List<UserEntity> getAllUsers();
+    List<UserDTO> getAllUsers();
 
     /**
      * Retrieves a user by email address.
@@ -52,19 +44,19 @@ public interface UserService {
      * @return Optional containing the user if found, empty Optional otherwise
      * @throws IllegalArgumentException if email is null or empty
      */
-    Optional<UserEntity> getUserByEmail(String email);
+    Optional<UserDTO> getUserByEmail(String email);
 
     /**
      * Updates an existing user with new data.
      * User must exist in the database before update.
-     *
-     * @param userEntity the user entity with updated data, must not be null
-     * @return the updated UserEntity
+     * @param id the unique identifier of the user to update
+     * @param userDTO the user entity with updated data, must not be null
+     * @return the updated UserDTO
      * @throws IllegalArgumentException if user entity is null
      * @throws IllegalArgumentException if user ID is null or invalid
      * @throws IllegalArgumentException if user does not exist in database
      */
-    UserEntity updateUser(UserEntity userEntity);
+    UserDTO updateUser(Long id, UserDTO userDTO);
 
     /**
      * Deletes a user by their unique identifier.

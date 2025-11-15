@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dto.UserDTO;
 import com.example.entity.UserEntity;
 import com.example.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
@@ -8,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
- * Service implementation for managing users with Spring Data JPA
+ * Implementation of UserService interface.
  */
 @Service
 public class UserServiceImpl implements UserService {
+
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
     private final UserRepository userRepository;
@@ -23,104 +26,101 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity createUser(UserEntity userEntity) {
-        if (userEntity == null) {
-            throw new IllegalArgumentException("User entity cannot be null");
+    public UserDTO createUser(UserDTO userDTO) {
+        if (userDTO == null || userDTO.getName() == null || userDTO.getEmail() == null) {
+            throw new IllegalArgumentException("User data cannot be null");
         }
 
-        if (userEntity.getEmail() == null || userEntity.getEmail().trim().isEmpty()) {
-            throw new IllegalArgumentException("User email cannot be empty");
+        if (userRepository.existsByEmail(userDTO.getEmail())) {
+            throw new IllegalArgumentException("User with email " + userDTO.getEmail() + " already exists");
         }
 
-        if (userEntity.getName() == null || userEntity.getName().trim().isEmpty()) {
-            throw new IllegalArgumentException("User name cannot be empty");
-        }
+        UserEntity entity = toEntity(userDTO);
+        UserEntity savedEntity = userRepository.save(entity);
+        logger.info("User created with ID: {}", savedEntity.getId());
 
-        if (userRepository.existsByEmail(userEntity.getEmail())) {
-            throw new IllegalArgumentException("User with email " + userEntity.getEmail() + " already exists");
-        }
-
-        UserEntity savedUser = userRepository.save(userEntity);
-        logger.info("User created successfully with ID: {}", savedUser.getId());
-
-        return savedUser;
+        return toDTO(savedEntity);
     }
 
     @Override
-    public Optional<UserEntity> getUserById(Long id) {
+    public Optional<UserDTO> getUserById(Long id) {
         if (id == null || id <= 0) {
-            throw new IllegalArgumentException("User ID must be valid");
+            throw new IllegalArgumentException("Invalid user ID");
         }
 
-        return userRepository.findById(id);
+        return userRepository.findById(id).map(this::toDTO);
     }
 
     @Override
-    public List<UserEntity> getAllUsers() {
-
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<UserEntity> getUserByEmail(String email) {
-        if (email == null || email.trim().isEmpty()) {
-            throw new IllegalArgumentException("Email cannot be empty");
+    public Optional<UserDTO> getUserByEmail(String email) {
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Email cannot be null or empty");
         }
 
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email).map(this::toDTO);
     }
 
     @Override
-    public UserEntity updateUser(UserEntity userEntity) {
-        if (userEntity == null) {
-            throw new IllegalArgumentException("User entity cannot be null");
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
+        if (id == null || userDTO == null) {
+            throw new IllegalArgumentException("User ID and data cannot be null");
         }
 
-        if (userEntity.getId() == null || userEntity.getId() <= 0) {
-            throw new IllegalArgumentException("User ID must be valid for update");
-        }
+        UserEntity existingEntity = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + id));
 
-        if (!userRepository.existsById(userEntity.getId())) {
-            throw new IllegalArgumentException("User with ID " + userEntity.getId() + " does not exist");
-        }
+        existingEntity.setName(userDTO.getName());
+        existingEntity.setEmail(userDTO.getEmail());
+        existingEntity.setAge(userDTO.getAge());
 
-        UserEntity updatedUser = userRepository.save(userEntity);
-        logger.info("User updated successfully with ID: {}", updatedUser.getId());
+        UserEntity updatedEntity = userRepository.save(existingEntity);
+        logger.info("User updated with ID: {}", id);
 
-        return updatedUser;
+        return toDTO(updatedEntity);
     }
 
     @Override
     public void deleteUser(Long id) {
-        if (id == null || id <= 0) {
-            throw new IllegalArgumentException("User ID must be valid");
-        }
-
-        if (!userRepository.existsById(id)) {
-            throw new IllegalArgumentException("User with ID " + id + " does not exist");
+        if (id == null || !userRepository.existsById(id)) {
+            throw new IllegalArgumentException("User not found with ID: " + id);
         }
 
         userRepository.deleteById(id);
-        logger.info("User deleted successfully with ID: {}", id);
+        logger.info("User deleted with ID: {}", id);
     }
 
     @Override
     public boolean userExists(Long id) {
-        if (id == null || id <= 0) {
-
-            return false;
-        }
-
-        return userRepository.existsById(id);
+        return id != null && userRepository.existsById(id);
     }
 
     @Override
     public boolean userExistsByEmail(String email) {
-        if (email == null || email.trim().isEmpty()) {
+        return email != null && userRepository.existsByEmail(email);
+    }
 
-            return false;
-        }
+    private UserDTO toDTO(UserEntity entity) {
+        return new UserDTO(
+                entity.getId(),
+                entity.getName(),
+                entity.getEmail(),
+                entity.getAge()
+        );
+    }
 
-        return userRepository.existsByEmail(email);
+    private UserEntity toEntity(UserDTO dto) {
+        return new UserEntity(
+                dto.getName(),
+                dto.getEmail(),
+                dto.getAge()
+        );
     }
 }

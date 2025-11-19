@@ -1,4 +1,4 @@
-package com.example.dto;
+package com.example.user.dto;
 
 /**
  * Data Transfer Object for User entity.
